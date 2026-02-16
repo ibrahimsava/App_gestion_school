@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Payment Details{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col">
+        <h2>Payment Details</h2>
+    </div>
+    <div class="col-auto">
+        <a href="{% url 'fees:payment_list' %}" class="btn btn-secondary">Back</a>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <p><strong>Student:</strong> {{ object.student.user.get_full_name }}</p>
+        <p><strong>Amount:</strong> {{ object.amount }}</p>
+        <p><strong>Payment Method:</strong> {{ object.get_payment_method_display }}</p>
+        <p><strong>Transaction ID:</strong> {{ object.transaction_id|default:"-" }}</p>
+        <p><strong>Payment Date:</strong> {{ object.payment_date|date:"d M Y H:i" }}</p>
+        <p><strong>Recorded By:</strong> {{ object.recorded_by.get_full_name }}</p>
+        <p><strong>Remarks:</strong> {{ object.remarks|default:"-" }}</p>
+    </div>
+</div>
+{% endblock %}

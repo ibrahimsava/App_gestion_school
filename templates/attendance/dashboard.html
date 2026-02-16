@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Attendance Dashboard - School Management{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">
+    <i class="fas fa-clipboard-list me-2"></i>Attendance Management
+</h2>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card text-center">
+            <div class="card-body">
+                <h6 class="card-title">Total Attendances Recorded</h6>
+                <h3 class="text-primary">{{ total_attendances }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card text-center">
+            <div class="card-body">
+                <h6 class="card-title">Attendance Reports Generated</h6>
+                <h3 class="text-primary">{{ total_reports }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">Quick Actions</div>
+            <div class="card-body">
+                <a href="{% url 'attendance:mark_attendance' %}" class="btn btn-primary btn-sm">
+                    <i class="fas fa-check-circle me-1"></i>Mark Attendance
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

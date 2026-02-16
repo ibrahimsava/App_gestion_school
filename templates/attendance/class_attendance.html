@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Attendance - {{ class_obj.name }}{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col">
+        <h2>{{ class_obj.name }} - Attendance</h2>
+    </div>
+    <div class="col-auto">
+        <a href="{% url 'attendance:mark_attendance' %}" class="btn btn-secondary">Back</a>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        {% if object_list %}
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Student</th>
+                        <th>Status</th>
+                        <th>Recorded By</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for att in object_list %}
+                    <tr>
+                        <td>{{ att.date|date:"d M Y" }}</td>
+                        <td>{{ att.student.user.get_full_name }}</td>
+                        <td>
+                            <span class="badge {% if att.status == 'present' %}bg-success{% elif att.status == 'absent' %}bg-danger{% elif att.status == 'late' %}bg-warning{% else %}bg-info{% endif %}">
+                                {{ att.get_status_display }}
+                            </span>
+                        </td>
+                        <td>{{ att.recorded_by.get_full_name|default:"-" }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="alert alert-info">No attendance records found</div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

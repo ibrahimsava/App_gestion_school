@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Announcements{% endblock %}
+
+{% block content %}
+<h2><i class="fas fa-bullhorn me-2"></i>Announcements</h2>
+
+<div class="card">
+    <div class="card-body">
+        {% if object_list %}
+        {% for ann in object_list %}
+        <div class="card mb-3">
+            <div class="card-header">
+                <strong>{{ ann.title }}</strong>
+                <span class="badge bg-info float-end">{{ ann.get_priority_display }}</span>
+            </div>
+            <div class="card-body">
+                {{ ann.content|truncatewords:50 }}
+            </div>
+            <div class="card-footer">
+                <small>By {{ ann.created_by.get_full_name }} on {{ ann.published_date|date:"d M Y" }}</small>
+                <a href="{% url 'communications:announcement_detail' ann.id %}" class="btn btn-sm btn-info float-end">Read More</a>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class="alert alert-info">No announcements</div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

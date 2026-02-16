@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}{{ object.title }}{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col">
+        <h2>{{ object.title }}</h2>
+    </div>
+    <div class="col-auto">
+        <a href="{% url 'communications:announcement_list' %}" class="btn btn-secondary">Back</a>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <span class="badge bg-info">{{ object.get_priority_display }}</span>
+        <small>By {{ object.created_by.get_full_name }} on {{ object.published_date|date:"d M Y H:i" }}</small>
+    </div>
+    <div class="card-body">
+        {{ object.content|linebreaks }}
+    </div>
+</div>
+{% endblock %}

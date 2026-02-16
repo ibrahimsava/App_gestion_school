@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}{{ object.title }}{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col">
+        <h2>{{ object.title }}</h2>
+    </div>
+    <div class="col-auto">
+        <a href="{% url 'librairy:book_list' %}" class="btn btn-secondary">Back</a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">Book Details</div>
+            <div class="card-body">
+                <p><strong>Author:</strong> {{ object.author }}</p>
+                <p><strong>ISBN:</strong> {{ object.isbn }}</p>
+                <p><strong>Publisher:</strong> {{ object.publisher }}</p>
+                <p><strong>Publication Year:</strong> {{ object.publication_year }}</p>
+                <p><strong>Category:</strong> {{ object.category }}</p>
+                <p><strong>Total Quantity:</strong> {{ object.quantity }}</p>
+                <p><strong>Available:</strong> {{ object.available_quantity }}</p>
+                <p><strong>Price:</strong> {{ object.price }}</p>
+                <p><strong>Shelf:</strong> {{ object.book_shelf|default:"-" }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

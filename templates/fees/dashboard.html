@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Fees Dashboard - School Management{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">
+    <i class="fas fa-money-bill me-2"></i>Fees Management
+</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <h6 class="card-title">Fee Structures</h6>
+                <h3 class="text-primary">{{ total_fee_structures }}</h3>
+                <a href="{% url 'fees:fee_structure_list' %}" class="btn btn-sm btn-outline-primary">View All</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <h6 class="card-title">Total Payments</h6>
+                <h3 class="text-primary">{{ total_payments }}</h3>
+                <a href="{% url 'fees:payment_list' %}" class="btn btn-sm btn-outline-primary">View All</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center text-danger">
+            <div class="card-body">
+                <h6 class="card-title">Pending Fees</h6>
+                <h3>{{ pending_fees }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Library Dashboard - School Management{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">
+    <i class="fas fa-library me-2"></i>Library Management
+</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <h6 class="card-title">Total Books</h6>
+                <h3 class="text-primary">{{ total_books }}</h3>
+                <a href="{% url 'librairy:book_list' %}" class="btn btn-sm btn-outline-primary">View All</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <h6 class="card-title">Available Books</h6>
+                <h3 class="text-success">{{ available_books }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <h6 class="card-title">Issued Books</h6>
+                <h3 class="text-primary">{{ issued_books }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">Quick Actions</div>
+            <div class="card-body">
+                <a href="{% url 'librairy:book_create' %}" class="btn btn-primary btn-sm">
+                    <i class="fas fa-plus me-1"></i>Add Book
+                </a>
+                <a href="{% url 'librairy:issue_create' %}" class="btn btn-primary btn-sm">
+                    <i class="fas fa-share me-1"></i>Issue Book
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}{{ class_obj.name }} - Timetable{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col">
+        <h2>{{ class_obj.name }} - Timetable</h2>
+    </div>
+    <div class="col-auto">
+        <a href="{% url 'timetables:dashboard' %}" class="btn btn-secondary">Back</a>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        {% if object_list %}
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Day</th>
+                        <th>Time</th>
+                        <th>Subject</th>
+                        <th>Teacher</th>
+                        <th>Room</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for tt in object_list %}
+                    <tr>
+                        <td><strong>{{ tt.get_day_display }}</strong></td>
+                        <td>{{ tt.start_time|time:"H:i" }} - {{ tt.end_time|time:"H:i" }}</td>
+                        <td>{{ tt.subject }}</td>
+                        <td>{{ tt.teacher.user.get_full_name|default:"-" }}</td>
+                        <td>{{ tt.room_number|default:"-" }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="alert alert-info">No timetable entries for this class</div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

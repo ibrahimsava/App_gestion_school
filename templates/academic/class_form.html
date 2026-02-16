@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}{% if object %}Update{% else %}Add{% endif %} Class{% endblock %}
+
+{% block content %}
+<h2><i class="fas fa-chalkboard me-2"></i>{% if object %}Update{% else %}Add New{% endif %} Class</h2>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <form method="post" novalidate>
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label class="form-label">Class Name *</label>
+                        <input type="text" name="name" class="form-control" {% if object %}value="{{ object.name }}"{% endif %} placeholder="e.g., Class 10A" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Class Code *</label>
+                        <input type="text" name="code" class="form-control" {% if object %}value="{{ object.code }}"{% endif %} required>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Level *</label>
+                            <input type="number" name="level" class="form-control" {% if object %}value="{{ object.level }}"{% endif %} placeholder="e.g., 10" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Section</label>
+                            <input type="text" name="section" class="form-control" {% if object %}value="{{ object.section }}"{% endif %} placeholder="e.g., A, B, C" maxlength="1">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Subjects</label>
+                        <select name="subjects" multiple class="form-control">
+                            <option value="">-- Select Subjects --</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save me-1"></i>Save Class
+                    </button>
+                    <a href="{% url 'academic:class_list' %}" class="btn btn-secondary">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

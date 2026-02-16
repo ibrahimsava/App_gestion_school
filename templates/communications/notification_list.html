@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Notifications{% endblock %}
+
+{% block content %}
+<h2><i class="fas fa-bell me-2"></i>Notifications</h2>
+
+<div class="card">
+    <div class="card-body">
+        {% if object_list %}
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Type</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for notif in object_list %}
+                    <tr>
+                        <td>{{ notif.title }}</td>
+                        <td><span class="badge bg-info">{{ notif.get_notification_type_display }}</span></td>
+                        <td>{{ notif.created_at|date:"d M Y H:i" }}</td>
+                        <td>
+                            {% if notif.is_read %}
+                            <span class="badge bg-success">Read</span>
+                            {% else %}
+                            <span class="badge bg-warning">New</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="alert alert-info">No notifications</div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

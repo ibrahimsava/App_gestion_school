@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}{% if object %}Update{% else %}Create{% endif %} Exam{% endblock %}
+
+{% block content %}
+<h2><i class="fas fa-plus me-2"></i>{% if object %}Update{% else %}Create{% endif %} Exam</h2>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <form method="post" novalidate>
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label class="form-label">Exam Name *</label>
+                        <input type="text" name="name" class="form-control" {% if object %}value="{{ object.name }}"{% endif %} required>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Exam Type *</label>
+                            <select name="exam_type" class="form-control" required>
+                                <option value="">Select Type</option>
+                                <option value="midterm" {% if object and object.exam_type == 'midterm' %}selected{% endif %}>Mid-Term</option>
+                                <option value="final" {% if object and object.exam_type == 'final' %}selected{% endif %}>Final</option>
+                                <option value="quiz" {% if object and object.exam_type == 'quiz' %}selected{% endif %}>Quiz</option>
+                                <option value="practical" {% if object and object.exam_type == 'practical' %}selected{% endif %}>Practical</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Class *</label>
+                            <select name="class_obj" class="form-control" required>
+                                <option value="">Select Class</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Subject *</label>
+                            <select name="subject" class="form-control" required>
+                                <option value="">Select Subject</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Exam Date *</label>
+                            <input type="date" name="exam_date" class="form-control" {% if object %}value="{{ object.exam_date|date:'Y-m-d' }}"{% endif %} required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Exam Time *</label>
+                            <input type="time" name="exam_time" class="form-control" {% if object %}value="{{ object.exam_time|time:'H:i' }}"{% endif %} required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Duration (minutes) *</label>
+                            <input type="number" name="duration_minutes" class="form-control" {% if object %}value="{{ object.duration_minutes }}"{% else %}value="60"{% endif %} required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Total Marks *</label>
+                            <input type="number" name="total_marks" class="form-control" {% if object %}value="{{ object.total_marks }}"{% else %}value="100"{% endif %} required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Passing Marks *</label>
+                            <input type="number" name="passing_marks" class="form-control" {% if object %}value="{{ object.passing_marks }}"{% else %}value="40"{% endif %} required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save me-1"></i>Save Exam
+                    </button>
+                    <a href="{% url 'academic:exam_list' %}" class="btn btn-secondary">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

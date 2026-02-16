@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}My Profile - School Management{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">
+    <i class="fas fa-user-circle me-2"></i>My Profile
+</h2>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Profile Information</h5>
+            </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <p><strong>Username:</strong> {{ object.username }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>Email:</strong> {{ object.email }}</p>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <p><strong>First Name:</strong> {{ object.first_name }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>Last Name:</strong> {{ object.last_name }}</p>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <p><strong>User Type:</strong> <span class="badge bg-primary">{{ object.user_type|title }}</span></p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>Phone:</strong> {{ object.phone|default:"Not provided" }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p><strong>Address:</strong> {{ object.address|default:"Not provided" }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header bg-secondary text-white">
+                <h5 class="mb-0">Profile Picture</h5>
+            </div>
+            <div class="card-body text-center">
+                {% if object.profile_picture %}
+                <img src="{{ objects.profile_picture.url }}" class="img-fluid rounded-circle" style="max-width: 150px;">
+                {% else %}
+                <div class="bg-light rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 150px; height: 150px;">
+                    <i class="fas fa-user fa-5x text-muted"></i>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

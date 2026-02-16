@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Student Fees - {{ student.user.get_full_name }}{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col">
+        <h2>{{ student.user.get_full_name }} - Fees</h2>
+    </div>
+    <div class="col-auto">
+        <a href="{% url 'fees:dashboard' %}" class="btn btn-secondary">Back</a>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        {% if object_list %}
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Fee Type</th>
+                        <th>Due Date</th>
+                        <th>Amount Due</th>
+                        <th>Amount Paid</th>
+                        <th>Balance</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for sf in object_list %}
+                    <tr>
+                        <td>{{ sf.fee_structure.fee_type }}</td>
+                        <td>{{ sf.due_date|date:"d M Y" }}</td>
+                        <td>{{ sf.amount_due }}</td>
+                        <td>{{ sf.amount_paid }}</td>
+                        <td>{{ sf.remaining_balance }}</td>
+                        <td>
+                            {% if sf.is_paid %}
+                            <span class="badge bg-success">Paid</span>
+                            {% else %}
+                            <span class="badge bg-danger">Pending</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="alert alert-info">No fees assigned</div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

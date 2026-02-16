@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Add Fee Structure{% endblock %}
+
+{% block content %}
+<h2><i class="fas fa-plus me-2"></i>Add Fee Structure</h2>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <form method="post" novalidate>
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label class="form-label">Class *</label>
+                        <select name="class_obj" class="form-control" required>
+                            <option value="">Select class</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Fee Type *</label>
+                        <input type="text" name="fee_type" class="form-control" placeholder="e.g., Tuition, Exam Fee" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Amount *</label>
+                        <input type="number" name="amount" step="0.01" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Due Date *</label>
+                        <input type="date" name="due_date" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save me-1"></i>Save
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

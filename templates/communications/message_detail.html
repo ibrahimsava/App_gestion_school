@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}{{ object.subject }}{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col">
+        <h2>{{ object.subject }}</h2>
+    </div>
+    <div class="col-auto">
+        <a href="{% url 'communications:message_list' %}" class="btn btn-secondary">Back</a>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <strong>From:</strong> {{ object.sender.get_full_name }} | <strong>Date:</strong> {{ object.created_at|date:"d M Y H:i" }}
+    </div>
+    <div class="card-body">
+        {{ object.content|linebreaks }}
+    </div>
+</div>
+{% endblock %}

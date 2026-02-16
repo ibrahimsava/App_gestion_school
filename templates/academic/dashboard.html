@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Academic Dashboard - School Management{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">
+    <i class="fas fa-book me-2"></i>Academic Management
+</h2>
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <h6 class="card-title">Total Subjects</h6>
+                <h3 class="text-primary">{{ total_subjects }}</h3>
+                <a href="{% url 'academic:subject_list' %}" class="btn btn-sm btn-outline-primary">View All</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <h6 class="card-title">Total Classes</h6>
+                <h3 class="text-primary">{{ total_classes }}</h3>
+                <a href="{% url 'academic:class_list' %}" class="btn btn-sm btn-outline-primary">View All</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <h6 class="card-title">Total Exams</h6>
+                <h3 class="text-primary">{{ total_exams }}</h3>
+                <a href="{% url 'academic:exam_list' %}" class="btn btn-sm btn-outline-primary">View All</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <h6 class="card-title">Results</h6>
+                <h3 class="text-primary">0</h3>
+                <a href="{% url 'academic:result_list' %}" class="btn btn-sm btn-outline-primary">View All</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">Quick Actions</div>
+            <div class="card-body">
+                <a href="{% url 'academic:subject_create' %}" class="btn btn-primary btn-sm mb-2">
+                    <i class="fas fa-plus me-1"></i>Add Subject
+                </a>
+                <a href="{% url 'academic:class_create' %}" class="btn btn-primary btn-sm mb-2">
+                    <i class="fas fa-plus me-1"></i>Add Class
+                </a>
+                <a href="{% url 'academic:exam_create' %}" class="btn btn-primary btn-sm">
+                    <i class="fas fa-plus me-1"></i>Create Exam
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

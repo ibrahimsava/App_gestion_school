@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}{{ object.name }}{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col">
+        <h2>{{ object.name }}</h2>
+    </div>
+    <div class="col-auto">
+        <a href="{% url 'academic:exam_list' %}" class="btn btn-secondary">
+            <i class="fas fa-arrow-left me-1"></i>Back
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">Exam Details</div>
+            <div class="card-body">
+                <p><strong>Type:</strong> {{ object.get_exam_type_display }}</p>
+                <p><strong>Class:</strong> {{ object.class_obj }}</p>
+                <p><strong>Subject:</strong> {{ object.subject }}</p>
+                <p><strong>Exam Date:</strong> {{ object.exam_date|date:"d M Y" }}</p>
+                <p><strong>Exam Time:</strong> {{ object.exam_time|time:"H:i" }}</p>
+                <p><strong>Total Marks:</strong> {{ object.total_marks }}</p>
+                <p><strong>Passing Marks:</strong> {{ object.passing_marks }}</p>
+                <p><strong>Duration:</strong> {{ object.duration_minutes }} minutes</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

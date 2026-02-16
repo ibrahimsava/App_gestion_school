@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Communications Dashboard - School Management{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">
+    <i class="fas fa-envelope me-2"></i>Communications
+</h2>
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <h6 class="card-title">Unread Messages</h6>
+                <h3 class="text-primary">{{ unread_messages }}</h3>
+                <a href="{% url 'communications:message_list' %}" class="btn btn-sm btn-outline-primary">View</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <h6 class="card-title">Notifications</h6>
+                <h3 class="text-primary">{{ unread_notifications }}</h3>
+                <a href="{% url 'communications:notification_list' %}" class="btn btn-sm btn-outline-primary">View</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <h6 class="card-title">Active Announcements</h6>
+                <h3 class="text-primary">{{ active_announcements }}</h3>
+                <a href="{% url 'communications:announcement_list' %}" class="btn btn-sm btn-outline-primary">View</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

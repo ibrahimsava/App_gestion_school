@@ -1,0 +1,187 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - School Management{% endblock %}
+
+{% block content %}
+<div class="row ">
+    <div class="col-md-12">
+        <h1 class="mb-4">
+            <i class="fas fa-tachometer-alt me-2"></i>Dashboard </h1>
+    </div>
+</div>
+
+<div class="row">
+    {% if user_type == 'student' %}
+    <!-- Student Dashboard -->
+    {% if student %}
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-graduation-cap me-2"></i>My Class
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">{{ student.current_class }}</h5>
+                <p class="card-text">
+                    <strong>Admission Number:</strong> {{ student.admission_number }}<br>
+                    <strong>Admission Date:</strong> {{ student.admission_date|date:"d M Y" }}<br>
+                    <strong>Status:</strong> 
+                    {% if student.is_active %}
+                    <span class="badge bg-success">Active</span>
+                    {% else %}
+                    <span class="badge bg-danger">Inactive</span>
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-book me-2"></i>Quick Links
+            </div>
+            <div class="card-body">
+                <a href="{% url 'academic:exam_list' %}" class="btn btn-outline-primary btn-sm d-block mb-2">
+                    <i class="fas fa-clipboard me-1"></i>View Exams
+                </a>
+                <a href="{% url 'librairy:my_books' %}" class="btn btn-outline-primary btn-sm d-block mb-2">
+                    <i class="fas fa-book-open me-1"></i>My Books
+                </a>
+                <a href="{% url 'communications:announcement_list' %}" class="btn btn-outline-primary btn-sm d-block">
+                    <i class="fas fa-bullhorn me-1"></i>Announcements
+                </a>
+            </div>
+        </div>
+    </div>
+
+    {% elif user_type == 'teacher' %}
+    <!-- Teacher Dashboard -->
+    {% if teacher %}
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-chalkboard-user me-2"></i>My Info
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">{{ teacher.user.get_full_name }}</h5>
+                <p class="card-text">
+                    <strong>Employee ID:</strong> {{ teacher.employee_id }}<br>
+                    <strong>Qualification:</strong> {{ teacher.qualification }}<br>
+                    <strong>Class Teacher:</strong> 
+                    {% if teacher.is_class_teacher %}
+                    <span class="badge bg-success">Yes</span>
+                    {% else %}
+                    <span class="badge bg-secondary">No</span>
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-tasks me-2"></i>Quick Links
+            </div>
+            <div class="card-body">
+                <a href="{% url 'attendance:mark_attendance' %}" class="btn btn-outline-primary btn-sm d-block mb-2">
+                    <i class="fas fa-check-circle me-1"></i>Mark Attendance
+                </a>
+                <a href="{% url 'academic:exam_list' %}" class="btn btn-outline-primary btn-sm d-block mb-2">
+                    <i class="fas fa-clipboard-list me-1"></i>View Exams
+                </a>
+                <a href="{% url 'communications:message_list' %}" class="btn btn-outline-primary btn-sm d-block">
+                    <i class="fas fa-envelope me-1"></i>Messages
+                </a>
+            </div>
+        </div>
+    </div>
+
+    {% elif user_type == 'admin' %}
+    <!-- Admin Dashboard -->
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <h6 class="card-title">Total Students</h6>
+                <h3 class="text-primary">{{ total_students }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <h6 class="card-title">Total Teachers</h6>
+                <h3 class="text-primary">{{ total_teachers }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <h6 class="card-title">Total Classes</h6>
+                <h3 class="text-primary">{{ total_classes }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <h6 class="card-title">Total Exams</h6>
+                <h3 class="text-primary">{{ total_exams }}</h3>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-bell me-2"></i>Recent Notifications
+            </div>
+            <div class="card-body">
+                {% if recent_notifications %}
+                    <div class="list-group">
+                        {% for notification in recent_notifications %}
+                        <div class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">
+                                    {% if notification.is_read %}
+                                        {{ notification.title }}
+                                    {% else %}
+                                        <strong>{{ notification.title }}</strong>
+                                    {% endif %}
+                                </h6>
+                                <small class="text-muted">{{ notification.created_at|timesince }} ago</small>
+                            </div>
+                            <p class="mb-1">{{ notification.message|truncatewords:20 }}</p>
+                            <small class="text-info">
+                                <i class="fas fa-tag"></i> 
+                                {% if notification.notification_type == 'assignment' %}
+                                    <span class="badge bg-warning">Assignment</span>
+                                {% elif notification.notification_type == 'announcement' %}
+                                    <span class="badge bg-info">Announcement</span>
+                                {% elif notification.notification_type == 'exam' %}
+                                    <span class="badge bg-danger">Exam</span>
+                                {% elif notification.notification_type == 'event' %}
+                                    <span class="badge bg-success">Event</span>
+                                {% elif notification.notification_type == 'message' %}
+                                    <span class="badge bg-primary">Message</span>
+                                {% else %}
+                                    <span class="badge bg-secondary">Other</span>
+                                {% endif %}
+                            </small>
+                        </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p class="text-muted">No recent notifications</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}{{ object.name }} - Class{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col">
+        <h2>{{ object.name }}</h2>
+    </div>
+    <div class="col-auto">
+        <a href="{% url 'academic:class_list' %}" class="btn btn-secondary">
+            <i class="fas fa-arrow-left me-1"></i>Back
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">Class Details</div>
+            <div class="card-body">
+                <p><strong>Code:</strong> {{ object.code }}</p>
+                <p><strong>Level:</strong> {{ object.level }}</p>
+                <p><strong>Section:</strong> {{ object.section|default:"-" }}</p>
+                <p><strong>Total Students:</strong> {{ object.students.count }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">Subjects</div>
+            <div class="card-body">
+                {% if object.subjects.all %}
+                <ul class="list-group">
+                    {% for subject in object.subjects.all %}
+                    <li class="list-group-item">{{ subject.name }} <code>{{ subject.code }}</code></li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p class="text-muted">No subjects assigned</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Timetables Dashboard - School Management{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">
+    <i class="fas fa-calendar-alt me-2"></i>Timetables Management
+</h2>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card text-center">
+            <div class="card-body">
+                <h6 class="card-title">Active Timetables</h6>
+                <h3 class="text-primary">{{ total_timetables }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">View Class Timetable</div>
+            <div class="card-body">
+                <div class="input-group">
+                    <select id="class_select" class="form-select" required>
+                        <option value="">Select a class...</option>
+                        {% for class in classes %}
+                        <option value="{{ class.id }}">{{ class.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">Quick Actions</div>
+            <div class="card-body">
+                <a href="{% url 'timetables:create' %}" class="btn btn-primary btn-sm">
+                    <i class="fas fa-plus me-1"></i>Add Timetable Entry
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('class_select').addEventListener('change', function() {
+    if (this.value) {
+        const classId = this.value;
+        const url = `/timetables/class/${classId}/`;
+        window.location.href = url;
+    }
+});
+</script>
+{% endblock %}

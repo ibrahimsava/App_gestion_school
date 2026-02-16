@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Attendance Report - {{ student.user.get_full_name }}{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col">
+        <h2>{{ student.user.get_full_name }} - Attendance Report</h2>
+    </div>
+    <div class="col-auto">
+        <a href="{% url 'attendance:dashboard' %}" class="btn btn-secondary">Back</a>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        {% if object_list %}
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Month/Year</th>
+                        <th>Total Days</th>
+                        <th>Present</th>
+                        <th>Absent</th>
+                        <th>Late</th>
+                        <th>Percentage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for report in object_list %}
+                    <tr>
+                        <td>{{ report.month }}/{{ report.year }}</td>
+                        <td>{{ report.total_days }}</td>
+                        <td><span class="badge bg-success">{{ report.present_days }}</span></td>
+                        <td><span class="badge bg-danger">{{ report.absent_days }}</span></td>
+                        <td><span class="badge bg-warning">{{ report.late_days }}</span></td>
+                        <td>{{ report.attendance_percentage|floatformat:2 }}%</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="alert alert-info">No attendance reports found</div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

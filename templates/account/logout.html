@@ -1,0 +1,196 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logout - School Management System</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #0056b3 0%, #003d82 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+        }
+
+        .logout-container {
+            width: 100%;
+            max-width: 450px;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logout-card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .logout-header {
+            background: linear-gradient(135deg, #0056b3 0%, #003d82 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .logout-header i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            display: block;
+            opacity: 0.9;
+        }
+
+        .logout-header h2 {
+            margin: 0;
+            font-weight: 700;
+            font-size: 1.8rem;
+        }
+
+        .logout-body {
+            padding: 40px;
+            background-color: white;
+            text-align: center;
+        }
+
+        .logout-body p {
+            color: #666;
+            font-size: 1.05rem;
+            margin-bottom: 30px;
+        }
+
+        .logout-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .btn-logout {
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+            border: none;
+            color: white;
+            padding: 12px 30px;
+            font-weight: 600;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-logout:hover {
+            background: linear-gradient(135deg, #c82333 0%, #a71d2a 100%);
+            color: white;
+            box-shadow: 0 5px 20px rgba(220, 53, 69, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .btn-stay {
+            background: #e9ecef;
+            border: 1px solid #dee2e6;
+            color: #495057;
+            padding: 12px 30px;
+            font-weight: 600;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-stay:hover {
+            background: #dee2e6;
+            color: #212529;
+            text-decoration: none;
+        }
+
+        .logout-icon-circle {
+            width: 80px;
+            height: 80px;
+            background-color: rgba(220, 53, 69, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+
+        .logout-icon-circle i {
+            color: #dc3545;
+            font-size: 2.5rem;
+        }
+
+        @media (max-width: 576px) {
+            .logout-body {
+                padding: 25px;
+            }
+
+            .logout-header {
+                padding: 30px 15px;
+            }
+
+            .logout-header h2 {
+                font-size: 1.5rem;
+            }
+
+            .logout-header i {
+                font-size: 2.5rem;
+            }
+
+            .logout-actions {
+                flex-direction: column;
+            }
+
+            .btn-logout, .btn-stay {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="logout-container">
+        <div class="card logout-card">
+            <div class="logout-header">
+                <i class="fas fa-sign-out-alt"></i>
+                <h2>Au revoir!</h2>
+            </div>
+
+            <div class="logout-body">
+                <div class="logout-icon-circle">
+                    <i class="fas fa-check"></i>
+                </div>
+
+                <p>Êtes-vous sûr de vouloir vous déconnecter?</p>
+
+                <form method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-logout">
+                        <i class="fas fa-sign-out-alt me-2"></i>Se déconnecter
+                    </button>
+                </form>
+
+                <a href="{% url 'account:dashboard' %}" class="btn btn-stay">
+                    <i class="fas fa-arrow-left me-2"></i>Rester connecté
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
